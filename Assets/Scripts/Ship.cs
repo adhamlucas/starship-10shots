@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ship : MonoBehaviour
+public class Ship : GameEntity
 {
 	[SerializeField] private Transform cannon;
 	[SerializeField] private GameObject[] shots = {};
+
+	public Spawn spawn { get; set; }
 
 	private KeyCode[] keyCodes = {
 		KeyCode.Alpha0,
@@ -87,4 +89,10 @@ public class Ship : MonoBehaviour
     	yield return new WaitForSeconds(time);
     	shooting = false;
     }
-};
+
+  protected override void OnTriggerEnter2D(Collider2D collision)
+  {
+		spawn.SpawnShip();
+    base.OnTriggerEnter2D(collision);
+  }
+}
