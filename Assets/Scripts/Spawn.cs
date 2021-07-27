@@ -11,6 +11,7 @@ public class Spawn : MonoBehaviour
     {
         lives++;
         SpawnShip();
+        GameController.Instance.UpdateLives(lives);
     }
 
     // Update is called once per frame
@@ -19,10 +20,14 @@ public class Spawn : MonoBehaviour
         if (lives > 0) 
         {
             lives--;
+            GameController.Instance.UpdateLives(lives);
             StartCoroutine(SpawnRoutine());
         }
 
-        else Debug.Log("GAME OVER");
+        else
+        {
+            GameController.Instance.GameOver();
+        }
     }   
 
     IEnumerator SpawnRoutine()
